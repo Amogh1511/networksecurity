@@ -1,4 +1,5 @@
 import os
+import numpy as np
 
 #Creating directory folder to store splited and feature store preprocessed data 
 ARTIFACT_DIR:str = "Artifacts"
@@ -12,7 +13,7 @@ FILE_NAME:str ="phisingData.csv"
 PIPELINE_NAME:str = "NetworkSecurity"
 
 #Dataset Target column [Y - Column]
-TARGET_COLUMN ="Results"
+TARGET_COLUMN ="Result"
 
 #train and test file names
 TRAIN_FILE_NAME:str = "train.csv"
@@ -60,7 +61,20 @@ DATA_VALIDATION_DRIFT_REPORT_DIR: str= "drift_report"
 #data validation drift report file name
 DATA_VALIDATION_DRIFT_REPORT_FILE_NAME: str= "report.yaml"
 
+#----------------------------------------------------Data Transformation---------------------------------------------------------------
 
+DATA_TRANSFORMATION_DIR_NAME: str = "data_transformation"
+DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR: str = "transformed"
+DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR: str = "transformed_object"
+PREPROCESSING_OBJECT_FILE_NAME: str = "preprocessing.pkl"
+
+
+#for KNN imputer class to replace NaN values
+DATA_TRANSFORMATION_IMPUTER_PARAMS: dict = {
+    "missing_values": np.nan,
+    "n_neighbors": 3,
+    "weights": "uniform",
+}
 
 
 
