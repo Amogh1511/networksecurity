@@ -14,7 +14,6 @@ from networksecurity.utils.main_utils.utils import read_yaml_file, write_yaml_fi
 #To validate number of columns 
 from networksecurity.constants.training_pipeline import SCHEMA_FILE_PATH
 
-
 class DataValidation:
     def __init__(self,data_ingestion_artifact:DataIngestionArtifact,
                  data_validation_config: DataValidationConfig):

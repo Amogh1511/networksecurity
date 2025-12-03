@@ -7,15 +7,12 @@ from networksecurity.logging.logger import logging
 from networksecurity.entity.config_entity import TrainingPipelineConfig
 
 #imports of Ingestion, Validation, Transformation
-from networksecurity.entity.config_entity import DataIngestionConfig, DataValidationConfig, DataTransformationConfig
+from networksecurity.entity.config_entity import DataIngestionConfig, DataValidationConfig, DataTransformationConfig, ModelTrainerConfig
 
 from networksecurity.components.data_ingestion import DataIngestion
 from networksecurity.components.data_validation import DataValidation
 from networksecurity.components.data_transformation import DataTransformation
-
-
-
-
+from networksecurity.components.model_trainer import ModelTrainer
 
 if __name__ == "__main__":
     try:
@@ -45,6 +42,13 @@ if __name__ == "__main__":
         datatransformationartifact=data_transformation.initiate_data_transformation()
         logging.info("Data Transformation Completed")
         print(datatransformationartifact)
+
+        #model training
+        modeltrainerconfig=ModelTrainerConfig(trainingpipelineconfig)
+        model_trainer=ModelTrainer(model_trainer_config=modeltrainerconfig,data_transformation_artifact=datatransformationartifact)
+        logging.info("Model training started")
+        modeltrainerartifact=model_trainer.initiate_model_trainer()
+        logging.info("Model Training Completed")
 
     except Exception as Exp:
         raise NetworkSecurityException(Exp,sys)
