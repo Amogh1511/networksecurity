@@ -20,6 +20,9 @@ from sklearn.metrics import r2_score
 from sklearn.ensemble import AdaBoostClassifier,GradientBoostingClassifier,RandomForestClassifier
 import mlflow
 
+import dagshub
+dagshub.init(repo_owner='Amogh1511', repo_name='networksecurity', mlflow=True)
+
 #doing Model Training, Hyperparameter Tuning, Doing Evaluation also giving Model Trainer Artifact
 class ModelTrainer:
     def __init__(self,
@@ -42,7 +45,7 @@ class ModelTrainer:
                 mlflow.log_metric("f1_score",f1_score)
                 mlflow.log_metric("precision_score",precision_score)
                 mlflow.log_metric("recall_score",recall_score)
-                mlflow.sklearn.log_model(best_model,"model")
+                mlflow.sklearn.log_model(best_model,"model",registered_model_name=None)
 
         except Exception as e:
             raise NetworkSecurityException(e,sys)
@@ -112,6 +115,8 @@ class ModelTrainer:
 
             network_model=Network(preprocessor=preprocessor,model=best_model)
             save_pickle_object(self.model_trainer_config.trained_model_file_path,obj=Network)
+            save_pickle_object("final_model/model.pkl",best_model)
+
 
             #Model trainer artifact
             model_trainer_artifact=ModelTrainerArtifact(trained_model_file_path=self.model_trainer_config.trained_model_file_path,
