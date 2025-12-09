@@ -1,34 +1,30 @@
 import os
 import numpy as np
 
-#Creating directory folder to store splited and feature store preprocessed data 
-ARTIFACT_DIR:str = "Artifacts"
-
-#Data directory file name
-FILE_NAME:str ="phisingData.csv"
-
-#Defining common constants variable for training pipeline
-
 #Pipeline name to github 
 PIPELINE_NAME:str = "NetworkSecurity"
 
 #Dataset Target column [Y - Column]
 TARGET_COLUMN ="Result"
 
-#train and test file names
-TRAIN_FILE_NAME:str = "train.csv"
-TEST_FILE_NAME:str = "test.csv"
 
 #Schema file Path
 SCHEMA_FILE_PATH = os.path.join("data_schema","schema.yaml")
 
-#--------------------------------------------------- Data Ingestion ---------------------------------------------------------------
+#DataBase name from which data needs to be retrieved 
+DATA_INGESTION_DATABASE_NAME: str = "iamamogh"
 
 #Data Ingestion related constant start with DATA_INGESTION VAR NAME
 DATA_INGESTION_COLLECTION_NAME: str = "NetworkData"
 
-#DataBase name from which data needs to be retrieved 
-DATA_INGESTION_DATABASE_NAME: str = "iamamogh"
+#Train-Test split ratio used white spliting the data 
+DATA_INGESTION_TRAIN_TEST_SPLIT_RATION: float = 0.2
+
+
+#--------------------------------------------------- Data Ingestion ---------------------------------------------------------------
+
+#Creating directory folder to store splited and feature store preprocessed data 
+ARTIFACT_DIR:str = "Artifacts"
 
 #The Data preprocessed after Train-Test split are stored in this folder 
 DATA_INGESTION_DIR_NAME: str = "data_ingestion"
@@ -36,11 +32,15 @@ DATA_INGESTION_DIR_NAME: str = "data_ingestion"
 #data ingested from Mongo and stored in feture store data folder as raw.csv
 DATA_INGESTION_FEATURE_STORE_DATA: str = "feature_store"
 
+#Data - file name
+FILE_NAME:str ="phisingData.csv"
+
 #Train-Test split folder name where data stored in folder as train.csv and test.csv
 DATA_INGESTION_INGESTED_DIR: str = "ingested"
 
-#Train-Test split ratio used white spliting the data 
-DATA_INGESTION_TRAIN_TEST_SPLIT_RATION: float = 0.2
+#train and test file names
+TRAIN_FILE_NAME:str = "train.csv"
+TEST_FILE_NAME:str = "test.csv"
 
 #----------------------------------------------------Data Validation -----------------------------------------------------------------
 

@@ -1,4 +1,4 @@
-from datetime import datetime
+
 import os
 from networksecurity.constants import training_pipeline
 
@@ -17,16 +17,14 @@ print(training_pipeline.ARTIFACT_DIR)
     Used whenever a new ML pipeline run starts to save raw, train, test, model files cleanly.
 '''
 class TrainingPipelineConfig:
-    def __init__(self,timestamp=datetime.now()):
+    def __init__(self):
         #tampstamp parameter
-        timestamp=timestamp.strftime("%m_%d_%Y_%H_%M_%S")
         #pipeline name to github 
         self.pipeline_name=training_pipeline.PIPELINE_NAME
         #Creating directory folder to store splited and feature store preprocessed data 
         self.artifect_name=training_pipeline.ARTIFACT_DIR
         #Creating file path Artifact 
-        self.artifect_dir=os.path.join(self.artifect_name,timestamp)
-        self.timestamp: str=timestamp
+        self.artifect_dir=os.path.join(self.artifect_name)
 
 #DataIngestion Config
 '''
@@ -42,26 +40,19 @@ class DataIngestionConfig:
     def __init__(self,training_pipeline_config:TrainingPipelineConfig):
 
         #The Data preprocessed after Train-Test split are stored in this folder 
-        self.data_ingestion_dir: str= os.path.join(
-            training_pipeline_config.artifect_dir,training_pipeline.DATA_INGESTION_DIR_NAME
+        self.data_ingestion_dir: str= os.path.join(training_pipeline_config.artifect_dir,training_pipeline.DATA_INGESTION_DIR_NAME
              )
         
         #data ingested from Mongo and stored in feture store data folder as raw.csv
-        self.feature_store_file_path: str= os.path.join(
-            self.data_ingestion_dir,training_pipeline.DATA_INGESTION_FEATURE_STORE_DATA
-                                    ,training_pipeline.FILE_NAME
+        self.feature_store_file_path: str= os.path.join(self.data_ingestion_dir,training_pipeline.DATA_INGESTION_FEATURE_STORE_DATA,training_pipeline.FILE_NAME
              )
         
         #Train-Test split folder name where data stored in folder as train.csv and test.csv
-        self.training_file_path: str= os.path.join(
-            self.data_ingestion_dir ,training_pipeline.DATA_INGESTION_INGESTED_DIR
-                                    ,training_pipeline.TRAIN_FILE_NAME
+        self.training_file_path: str= os.path.join(self.data_ingestion_dir ,training_pipeline.DATA_INGESTION_INGESTED_DIR,training_pipeline.TRAIN_FILE_NAME
              )
         
         #Train-Test split folder name where data stored in folder as train.csv and test.csv
-        self.testing_file_path: str= os.path.join(
-            self.data_ingestion_dir,training_pipeline.DATA_INGESTION_INGESTED_DIR
-                                   ,training_pipeline.TEST_FILE_NAME
+        self.testing_file_path: str= os.path.join(self.data_ingestion_dir,training_pipeline.DATA_INGESTION_INGESTED_DIR,training_pipeline.TEST_FILE_NAME
              )
         
         #Train-Test split ratio used white spliting the data 

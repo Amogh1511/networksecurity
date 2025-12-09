@@ -66,6 +66,7 @@ class uploadingnetworkdata():
             self.collection=self.database[self.collection]
             #insert_many() returns a result 
             result=self.collection.insert_many(self.records)
+            logging.info("data inserted")
             #where ids are generated in mongo for every row
             #and it will return results of ids of each data uploaded in mongo for verification 
             return result.inserted_ids
@@ -75,7 +76,7 @@ class uploadingnetworkdata():
 
 if __name__=="__main__":
     #file path of my data in local
-    FILE_PATH="D:\\networksecurity\\network_data\\phisingData.csv"
+    FILE_PATH=r"D:\\MyProjects\\networksecurity\\network_data\\phisingData.csv"
     #database name I created in mongo
     DATABASE="iamamogh"
     #NetworkData is just a collection name storing in Mongo (like a folder name)
@@ -91,3 +92,4 @@ if __name__=="__main__":
     #returns the list of data that were uploaded
     #If they are uploaded then it returns row data by returning the ids as verified
     print(len(inserted_ids))
+

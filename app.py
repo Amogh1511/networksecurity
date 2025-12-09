@@ -52,7 +52,7 @@ async def index():
     return RedirectResponse(url="/docs")
 
 @app.get("/train")
-async def train_oute():
+async def train_route():
     try:
         train_pipeline=TrainingPipeline()
         train_pipeline.run_pipeline()
@@ -60,7 +60,7 @@ async def train_oute():
     except Exception as e:
         raise NetworkSecurityException(e,sys)
 
-@app.get("/predict")
+@app.post("/predict")
 async def predict_route(request:Request,file:UploadFile=File(...)):
     try:
         df=pd.read_csv(file.file)
@@ -74,7 +74,7 @@ async def predict_route(request:Request,file:UploadFile=File(...)):
         print(df["predicted_column"])
         df.to_csv("prediction_output/output.csv")
         table_html=df.to_html(classes="table table-striped")
-        return templates.TemplateResponse("table.html",{"Request":request,"table":table_html})
+        return templates.TemplateResponse("table.html",{"request":request,"table":table_html})
     
     except Exception as e:
         raise NetworkSecurityException(e,sys)
